@@ -3,16 +3,14 @@
 
 using namespace std;
 
-class Ventana
-{
+class Ventana{
 public:
     virtual ~Ventana() {}
     virtual void dibujar() = 0;
     virtual string obtenerDescripcion() = 0;
 };
 
-class VentanaSencilla : public Ventana
-{
+class VentanaSencilla : public Ventana{
 public:
     void dibujar() {
         //Esto dibuja la ventana
@@ -22,8 +20,43 @@ public:
     }
 };
 
+class DecoradorDeVentana : public Ventana{
+protected:
+    Ventana *m_ventanaDecorada;
+
+public:
+    DecoradorDeVentana (Ventana *ventanaDecorada):
+            m_ventanaDecorada(ventanaDecorada) {}
+};
+
+class ScrollBarVerticalDecorador : public DecoradorDeVentana{
+public:
+    ScrollBarVerticalDecorador (Ventana *ventanaDecorada):
+            DecoradorDeVentana(ventanaDecorada) {}
+
+    void dibujar() {
+        dibujarScrollBarVertical();
+        m_ventanaDecorada->dibujar();
+    }
+
+    string obtenerDescripcion() {
+        return m_ventanaDecorada->obtenerDescripcion() + "ventana con un scrollbar vertical\n";
+    }
+
+private:
+    void dibujarScrollBarVertical() {
+        //Dibuja el scrollbar vertical
+    }
+};
+
 int main(){
     return 0;
 }
+
+
+
+
+
+
 
 
