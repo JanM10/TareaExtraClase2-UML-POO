@@ -49,12 +49,38 @@ private:
     }
 };
 
+class AgregarImagen : public DecoradorDeVentana{
+public:
+    AgregarImagen(Ventana *ventanaDecorada):
+            DecoradorDeVentana(ventanaDecorada) {}
+
+    void dibujar() {
+        agregarImagen();
+        m_ventanaDecorada->dibujar();
+    }
+
+    string obtenerDescripcion() {
+        return m_ventanaDecorada->obtenerDescripcion() + "con una imagen\n";
+    }
+private:
+    void agregarImagen() {
+        //Se agrega una imagen
+    }
+};
+
+
 int main(){
     Ventana *simple = new VentanaSencilla();
     cout << simple -> obtenerDescripcion() << endl;
 
     Ventana *vert = new ScrollBarVerticalDecorador ( new VentanaSencilla());
     cout << vert -> obtenerDescripcion() << endl;
+
+    Ventana *imagen = new AgregarImagen ( new VentanaSencilla());
+    cout << imagen -> obtenerDescripcion() << endl;
+
+    Ventana *ventanaDecorada = new AgregarImagen (new ScrollBarVerticalDecorador(new VentanaSencilla()));
+    cout << ventanaDecorada -> obtenerDescripcion() << endl;
 
     return 0;
 }
