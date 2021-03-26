@@ -40,7 +40,7 @@ public:
     }
 
     string obtenerDescripcion() {
-        return m_ventanaDecorada->obtenerDescripcion() + "ventana con un scrollbar vertical\n";
+        return m_ventanaDecorada->obtenerDescripcion() + "con un scrollbar vertical\n";
     }
 
 private:
@@ -50,6 +50,12 @@ private:
 };
 
 int main(){
+    Ventana *simple = new VentanaSencilla();
+    cout << simple -> obtenerDescripcion() << endl;
+
+    Ventana *vert = new ScrollBarVerticalDecorador ( new VentanaSencilla());
+    cout << vert -> obtenerDescripcion() << endl;
+
     return 0;
 }
 
